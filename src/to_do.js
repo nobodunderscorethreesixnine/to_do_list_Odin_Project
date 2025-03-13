@@ -5,8 +5,6 @@ import dltBtnImg from '../images/dlt-icon.png';
 class ToDoApp {
   constructor() {
     this.userSelectedProject = null;
-    // this.projectNames = ['Default project'];
-    // this.toDoData = { 'Default project': [['hello', '2025-01-02', 'High', 'what is up'], ['Fiddle with buttons', '2025-01-02', 'Medium', 'what is up'], ['Hi', '2025-01-02', 'Low', 'what is up']] };
     this.projectNames = []
     this.toDoData = {}
     this.editedToDoIndex = null;
@@ -45,19 +43,7 @@ class ToDoApp {
     this.priorityLabel.addEventListener('click', (e) => this.sortTodos(e));
   }
 
-  // Load toDoData from localStorage
-  // loadFromStorage() {
-  //   const storedData = JSON.parse(localStorage.getItem('toDoData'));
-  //   if (storedData) {
-  //     this.toDoData = storedData;
-  //     Object.keys(storedData).forEach((project) => {
-  //       this.projectNames.push(project);
-  //       this.createProjectDOM(project);
-  //     });
-  //   }
-  // }
-  // Load toDoData from localStorage
-  // Load toDoData from localStorage
+
   loadFromStorage() {
     const storedData = JSON.parse(localStorage.getItem('toDoData'));
 
@@ -79,11 +65,6 @@ class ToDoApp {
     // Render all projects in the DOM
     this.projectNames.forEach((project) => this.createProjectDOM(project));
   }
-
-
-
-
-
 
   // Update localStorage
   updateSessionStorage() {
@@ -287,5 +268,3 @@ class ToDoApp {
 
 // Initialize the app
 new ToDoApp();
-// app = new ToDoApp();
-// app.updateSessionStorage()
