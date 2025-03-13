@@ -1,0 +1,439 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+dialog {
+    width: 500px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(18, 123, 184);
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    /* controlling dialog with js */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    z-index:1;
+    /* using z-index to tackle the probme of custom checkbox, 
+    if not used then checkbox may appear in dialogbox*/
+}
+
+dialog input,
+select,
+option,
+textarea {
+    background-color: #08613fe5;
+    color: white;
+}
+
+input:invalid,
+select:invalid,
+textarea:invalid {
+    box-shadow: 1px 1px 5px 1px rgba(165, 75, 75, 0.836);
+    border-radius: 8px;
+}
+
+dialog>div {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+}
+
+dialog>div>#title {
+    padding: 8px;
+    font-size: large;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+}
+
+dialog #date {
+    padding: 8px;
+    color: rgb(200, 255, 0);
+    font-size: 1.3rem;
+    border: none;
+    outline: none;
+}
+
+dialog select {
+    padding: 8px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+}
+
+dialog #save {
+    width: 30px;
+    cursor: pointer;
+}
+
+dialog #exit {
+    width: 30px;
+    cursor: pointer;
+}
+
+dialog option {
+    background-color: rgba(255, 255, 255, 0.61);
+    color: rgb(0, 47, 255);
+}
+
+dialog>textarea {
+    width: 100%;
+    height: 40%;
+    resize: none;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: large;
+    border: none;
+    outline: none;
+}
+
+.to-do {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 15% 85%;
+    grid-template-areas:
+        'side-bar nav'
+        'side-bar to-do';
+    background-color: rgba(10, 64, 95, 0.788);
+}
+
+/* style for sidebar */
+.to-do .side-bar {
+    grid-area: side-bar;
+    background-color: rgba(10, 255, 243, 0.103);
+    display: grid;
+    grid-template-rows: 200px;
+    grid-template-areas:
+        'btn'
+        'prj';
+    gap: 50px;
+}
+
+.side-bar .side-bar-hdr {
+    grid-area: btn;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    gap: 15px;
+}
+
+.side-bar-hdr div {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.side-bar-hdr h1 {
+    color: rgba(245, 245, 245, 0.87);
+    font-size: 2rem;
+}
+
+.side-bar-hdr #prj-plus {
+    width: 40px;
+    transition: transform 0.5s;
+}
+
+.side-bar-hdr #prj-plus:hover {
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+
+.side-bar-hdr .prj-input {
+    padding: 4px;
+    width: 90%;
+    font-size: large;
+    font-weight: lighter;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    visibility: hidden;
+    transition: transform 0.5s, background-color 1s;
+    /* text-align:center; */
+}
+
+.side-bar-hdr .visible {
+    visibility: visible;
+}
+
+/* animation for prj-input while closing and opening */
+.side-bar-hdr .prj-input:not(:focus) {
+    transform: scale(0.0);
+}
+
+/* styling prj list */
+.side-bar .prj-list {
+    grid-area: prj;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    flex-shrink: 0;
+    flex-grow: 0;
+    gap: 15px;
+    /* border: 2px solid rgb(145, 255, 0); */
+    box-shadow: 0px 0px 3px 1px rgb(7, 86, 105);
+    /* box-shadow:0px 0px 3px 1px #34adee; */
+    overflow: auto;
+    margin: 8px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.prj-list>.prj-name {
+    color: black;
+    font-size: 1.2rem;
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    transition: color 0.3s, background-color 0.3s, transform 0.3s, box-shadow 0.5s, border-radius 0.3s;
+}
+
+.prj-list>.prj-name:hover {
+    box-shadow: 0px 0px 0px 1px #000000;
+    color: #fff;
+    background-color: #007BFF;
+    transform: scaleY(1.1);
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* making .active class */
+.prj-list>.active {
+    box-shadow: 0px 0px 0px 1px #000000;
+    color: #fff;
+    background-color: #007BFF;
+    transform: scaleY(1.1);
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+
+/* styling for nav bar */
+.to-do .nav {
+    grid-area: nav;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav img {
+    height: 70px;
+    margin-right: 20px;
+}
+
+.nav h1 {
+    color: rgb(42, 165, 165);
+    font-size: 3rem;
+    text-decoration: overline underline;
+}
+
+.nav>h1>span {
+    color: rgb(248, 222, 189);
+}
+
+/* styling for to-do-board */
+.to-do .to-do-board {
+    grid-area: to-do;
+    margin: 8px;
+    /* background-image: url('../images/pattern.jpg'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    box-shadow: -1px -1px 1px 1px rgba(0, 0, 0, 0.452);
+    /* box-shadow:0px 0px 3px 3px rgb(0, 0, 0); */
+}
+
+/* styling for to do labels */
+.to-do-board .to-do-labels {
+    justify-items: center;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.589);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.to-do-labels .priority-label {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.to-do-labels .priority-label p {
+    padding: 4px;
+    width: 110px;
+    border: 2px solid cyan;
+    font-size: 1.3rem;
+    margin-right: 20px;
+    text-align: center;
+    border-radius: 8px;
+    border: none;
+    color: white;
+}
+
+.p-l {
+    background-color: rgb(0, 100, 0)
+}
+
+.p-l:hover {
+    background-color: rgba(0, 100, 0, 0.815);
+    cursor: pointer;
+}
+
+.p-m {
+    background-color: rgb(51, 51, 216);
+}
+
+.p-m:hover {
+    background-color: rgba(51, 51, 216, 0.842);
+    cursor: pointer;
+}
+
+.p-h {
+    background-color: rgb(224, 14, 14);
+}
+
+.p-h:hover {
+    background-color: rgba(224, 14, 14, 0.856);
+    cursor: pointer;
+}
+
+
+.to-do-labels #to-do-plus {
+    height: 23px;
+    background-color: rgba(20, 122, 100, 0.774);
+    border-radius: 50%;
+}
+
+.to-do-labels #to-do-plus:hover {
+    cursor: pointer;
+}
+
+.to-do-labels #to-do-plus:active {
+    background-color: rgb(20, 122, 100);
+}
+
+/* styling for to do list section */
+.to-do-board .to-do-list {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 30px 0px 30px 0px;
+    gap: 25px;
+    overflow: auto;
+}
+
+.to-do-list .to-dos {
+    width: 500px;
+    height: 150px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        'title title priority'
+        'note note note'
+        'img void date';
+    align-items: center;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.205);
+    box-shadow: 0px 0px 5px 2px rgba(3, 68, 94, 0.801);
+    border-radius: 8px;
+}
+
+.to-dos>label {
+    font-size: 1.7rem;
+    color: rgb(187, 255, 0);
+    grid-area: title;
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+    max-width: max-content;
+}
+
+.to-dos input[type='checkbox'] {
+    appearance: none;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    display: grid;
+    place-content: center;
+}
+
+.to-dos input[type='checkbox']::before {
+    content: '+';
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+}
+
+.to-dos input[type='checkbox']:checked::before {
+    transform: scale(1);
+}
+
+.to-dos p {
+    grid-area: note;
+}
+
+.to-dos span {
+    grid-area: priority;
+    justify-self: end;
+    align-self: start;
+    padding: 2px;
+    width: 55px;
+    font-size: large;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    color: rgb(255, 255, 255);
+}
+
+.to-dos .edit-icon {
+    grid-area: img;
+    width: 30px;
+    align-self: end;
+    justify-self: start;
+}
+
+.to-dos .dlt-icon {
+    grid-area: img;
+    width: 28px;
+    align-self: end;
+    justify-self: center;
+}
+
+.to-dos h4 {
+    grid-area: date;
+    justify-self: end;
+    align-self: end;
+    font-size: large;
+}
+
+.to-dos.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+input[type="checkbox"]:checked+label {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
